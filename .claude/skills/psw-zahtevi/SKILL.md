@@ -29,6 +29,8 @@ different things. Do not assume a shape; read what is there.
 
 Look up what already exists, enough to know what the text adds:
 
+- the goal of the module or modules the text concerns, in the `## Moduli` section of the
+  root `README.md`;
 - the module or modules the text concerns: the routes file and pages on the client, the
   use-case groups in `Application`, the aggregates in `Domain`;
 - the specs already in `.workspace/specs/` for that module, so a feature is not written
@@ -47,10 +49,15 @@ first two are fixed; choose the rest where a wrong guess would cost the most.
 1. **Ko i zašto.** Ask who benefits and what they are ultimately after, and what in the
    text supports that reading. Listen for a benefit that only restates the action
    ("autor želi da arhivira turu" is the action; why they want it gone from the offer is
-   the benefit), and for a second role or a second benefit hiding in the text.
+   the benefit), and for a second role or a second benefit hiding in the text. Then ask
+   how that benefit serves the module's goal from the root `README.md`. A benefit that
+   serves no goal of its module, or serves another module's goal better, is worth naming.
 2. **Podela.** Show the capabilities you see in the text as a plain list, without
    grouping them, and ask where the student would cut the input into features and why.
-   Judge the answer by the slice rule below. When the input is plainly one slice, say so
+   Name each capability as something a user would ask for, not as separate create, edit
+   and delete operations. Judge the answer by the slice rule below. If the cut gives more
+   than three features, ask which of them would have the same design, and let the
+   student merge them or defend the split. When the input is plainly one slice, say so
    in one line and skip this exchange.
 3. **Ponašanje i pravila.** Two to four exchanges, each on one gap:
    - the main flow of a feature the text describes only vaguely: what the user does and
@@ -84,11 +91,17 @@ A feature is one slice when all three hold:
 - **About one state change.** One command, plus the queries needed to reach it and to
   see its result. A feature that is only a query (a new list or view) is also one slice.
   Creating something and listing it may share a slice, because a creation nobody can see
-  cannot be demonstrated; editing and deleting are separate slices.
+  cannot be demonstrated.
 - **It can be demonstrated alone.** Someone can log in, do it, and see the outcome
   without another new feature existing.
 
-When in doubt, cut smaller.
+A slice is too small when its design would repeat a sibling's: the same aggregate, the
+same page, and no rule or role of its own. Merge it into that sibling. Editing or
+deleting something therefore usually joins the slice that creates it; it becomes its own
+slice when it carries its own rule (archiving a tour that already has buyers) or belongs
+to another role.
+
+When in doubt, ask whether each piece would earn its own design conversation.
 
 A feature whose consequence depends on another module (a key point that requires a
 completed game, a purchase that unlocks a tour) is one slice for the module that owns

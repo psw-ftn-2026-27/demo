@@ -41,6 +41,7 @@ docs/             knowledge base (course material, in Serbian), see below
                   frontend install, lint, build
 .config/          dotnet tool manifest (dotnet-ef)
 .claude/          shared agent settings and the psw-* skills, see below
+.agents/          the same psw-* skills for Codex
 .workspace/       per-student working files of the skills (specs, study log, exports);
                   gitignored, never committed
 ```
@@ -110,8 +111,8 @@ tell whether a lesson covers it, flag it.
 
 ## Skills
 
-`.claude/skills/` holds the `psw-*` skills, which run only when a student invokes one by
-name. They exist to teach: a skill slows the work down on purpose and asks the student
+`.claude/skills/` holds the `psw-*` skills, and `.agents/skills/` holds their Codex
+versions. A skill runs only when a student invokes it by name. They exist to teach: a skill slows the work down on purpose and asks the student
 to reason before it answers, so never shorten its phases to finish sooner. Each skill
 names the lessons and tier instructions it reads, and that list overrides the two
 loading rules above (no knowledge base for engineering tasks, no tier instructions for
