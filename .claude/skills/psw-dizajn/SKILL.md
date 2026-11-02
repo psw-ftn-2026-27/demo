@@ -96,7 +96,8 @@ The student describes:
 - which aggregate is new or which existing one grows;
 - what it has to hold for this feature, and whether a new concept is a value object or
   an entity;
-- which rule from `Pravila` it guards, and in which constructor or method.
+- which rule from `Pravila` it guards, and in which constructor or method, named as the
+  action the user would recognise.
 
 Mandatory patterns:
 
@@ -170,7 +171,9 @@ Write each test into the spec as a sentence about the domain, not as a method na
 ## 3. Present and approve
 
 Print the whole `## Dizajn` block in the console in Serbian, as it now stands in the
-spec. Ask the student to approve it or say what to change.
+spec. Then point to the names in `Domenski model` and `Operacije` and ask whether any of
+them would need explaining to the person who wrote the requirement. Ask the student to
+approve it or say what to change; a rename is a correction like any other.
 
 A correction that stays within the patterns is applied as written, with the tag
 `student`. A correction that breaks a mandatory pattern is answered once, as
