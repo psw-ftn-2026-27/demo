@@ -1,0 +1,44 @@
+<div class="card stack">
+  <h1>Edit blog</h1>
+
+  @if (blog.isLoading()) {
+    <p>Loading blog...</p>
+  } @else if (blog.error()) {
+    <p class="error">Could not load the blog.</p>
+  } @else {
+    <form class="stack" (submit)="submit($event)">
+      <div class="field">
+        <label for="title">Title</label>
+        <input id="title" type="text" [formField]="form.title" />
+        @if (form.title().touched()) {
+          @for (message of form.title().errors(); track $index) {
+            <p class="error">{{ message.message }}</p>
+          }
+        }
+      </div>
+
+      <div class="field">
+        <label for="description">Description</label>
+        <textarea id="description" rows="6" [formField]="form.description"></textarea>
+        @if (form.description().touched()) {
+          @for (message of form.description().errors(); track $index) {
+            <p class="error">{{ message.message }}</p>
+          }
+        }
+      </div>
+
+      <div class="field">
+        <label for="images">Images (one address per line)</label>
+        <textarea id="images" rows="4" [formField]="form.images"></textarea>
+      </div>
+
+      @if (error()) {
+        <p class="error">{{ error() }}</p>
+      }
+
+      <button class="button button--primary" type="submit" [disabled]="!form().valid() || pending()">
+        Save
+      </button>
+    </form>
+  }
+</div>

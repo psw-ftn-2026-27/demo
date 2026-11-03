@@ -30,6 +30,44 @@ public class BlogTests
     }
 
     [Fact]
+    public void New_blog_was_last_modified_when_it_was_created()
+    {
+        var blog = CreateBlog();
+
+        blog.LastModifiedAt.Should().Be(blog.CreatedAt);
+    }
+
+    [Fact]
+    public void Author_changes_the_title_description_and_images_of_a_blog()
+    {
+        var blog = CreateBlog();
+        var createdAt = blog.CreatedAt;
+        var updateStart = DateTime.UtcNow;
+
+        blog.Update("Nov naslov", "Nov opis obilaska.", ["https://example.com/nova.jpg", "https://example.com/druga.jpg"]);
+
+        blog.Title.Should().Be("Nov naslov");
+        blog.Description.Should().Be("Nov opis obilaska.");
+        blog.Images.Should().Equal("https://example.com/nova.jpg", "https://example.com/druga.jpg");
+        blog.LastModifiedAt.Should().BeOnOrAfter(updateStart);
+        blog.CreatedAt.Should().Be(createdAt);
+    }
+
+    [Theory]
+    [InlineData("", "Nov opis obilaska.")]
+    [InlineData("   ", "Nov opis obilaska.")]
+    [InlineData("Nov naslov", "")]
+    [InlineData("Nov naslov", "   ")]
+    public void Blog_cannot_be_changed_to_have_an_empty_title_or_description(string title, string description)
+    {
+        var blog = CreateBlog();
+
+        var update = () => blog.Update(title, description, []);
+
+        update.Should().Throw<DomainException>();
+    }
+
+    [Fact]
     public void New_blog_without_images_has_no_images()
     {
         var blog = new Blog(WellKnownUsers.Explorer, "Utisci sa tvrđave", "Opis obilaska tvrđave.", null);
